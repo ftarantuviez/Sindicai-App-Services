@@ -12,7 +12,7 @@ class PythonPredictor:
     self.transform = transforms.Compose([transforms.Resize((self._img_size, self._img_size)), transforms.ToTensor()])
 
   def predict(self, payload):
-    img = url_to_image(payload["url"], "pil")
+    img = url_to_image.convert(payload["url"], "pil")
     img = self.transform(img.convert('L'))
     prediction = torch.max(self.model(img[None, ...]).data,1).indices.item()
 
